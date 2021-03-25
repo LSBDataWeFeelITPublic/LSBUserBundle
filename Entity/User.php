@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping\MappedSuperclass;
 use LSB\UtilityBundle\Traits\UuidTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
+
 /**
  * Class User
  * @package LSB\UserBUndle\Entity
@@ -62,6 +63,11 @@ class User implements UserInterface
     protected string $password;
 
     /**
+     * @var string|null
+     */
+    protected ?string $plainPassword;
+
+    /**
      * @var string
      * @ORM\Column(type="string", length=255, nullable=false)
      * @Assert\Length(max=255)
@@ -87,6 +93,8 @@ class User implements UserInterface
      */
     protected ?\DateTime $lastLogin;
 
+    // TODO groups
+
 
     /**
      * User constructor.
@@ -94,15 +102,27 @@ class User implements UserInterface
     public function __construct()
     {
         $this->generateUuid();
+        $this->isEnabled = false;
+        $this->roles = [];
     }
 
+    /**
+     * @throws \Exception
+     */
     public function __clone()
     {
         if ($this->getId()) {
             $this->id = null;
         }
-
         $this->generateUuid($force = true);
+    }
+
+    /**
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return (string)$this->getUsername();
     }
 
     /**
@@ -214,6 +234,24 @@ class User implements UserInterface
     }
 
     /**
+     * @return string|null
+     */
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    /**
+     * @param string|null $plainPassword
+     * @return User
+     */
+    public function setPlainPassword(?string $plainPassword): User
+    {
+        $this->plainPassword = $plainPassword;
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getSalt(): string
@@ -268,11 +306,20 @@ class User implements UserInterface
     }
 
     /**
-     * @return array|null
+     * @return array
      */
-    public function getRoles(): ?array
+    public function getRoles(): array
     {
-        return $this->roles;
+        $roles = $this->roles;
+
+//        foreach ($this->getGroups() as $group) {
+//            $roles = array_merge($roles, $group->getRoles());
+//        }
+
+        // we need to make sure to have at least one role
+        $roles[] = self::ROLE_DEFAULT;
+
+        return array_values(array_unique($roles));
     }
 
     /**
@@ -284,5 +331,37 @@ class User implements UserInterface
         $this->roles = $roles;
         return $this;
     }
-    
+
+    /**
+     * @param string $role
+     * @return $this
+     */
+    public function addRole(string $role): User
+    {
+        $role = strtoupper($role);
+        if ($role === self::ROLE_DEFAULT) {
+            return $this;
+        }
+
+        if (!in_array($role, $this->roles, true)) {
+            $this->roles[] = $role;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param string $role
+     * @return bool
+     */
+    public function hasRole(string $role): bool
+    {
+        return in_array(strtoupper($role), $this->getRoles(), true);
+    }
+
+
+    public function eraseCredentials(): void
+    {
+        $this->plainPassword = null;
+    }
 }
