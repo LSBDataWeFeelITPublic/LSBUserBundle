@@ -68,6 +68,11 @@ class User implements UserInterface
      */
     protected string $salt;
 
+    /**
+     * @var array|null
+     * @ORM\Column(type="array", nullable=true)
+     */
+    protected ?array $roles;
 
     /**
      * @var string|null
@@ -75,7 +80,6 @@ class User implements UserInterface
      * @Assert\Length(max=255)
      */
     protected ?string $confirmationToken;
-
 
     /**
      * @var \DateTime|null
@@ -85,12 +89,11 @@ class User implements UserInterface
 
 
     /**
-     * Contractor constructor.
+     * User constructor.
      */
     public function __construct()
     {
         $this->generateUuid();
-
     }
 
     public function __clone()
@@ -264,4 +267,22 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return array|null
+     */
+    public function getRoles(): ?array
+    {
+        return $this->roles;
+    }
+
+    /**
+     * @param array|null $roles
+     * @return User
+     */
+    public function setRoles(?array $roles): User
+    {
+        $this->roles = $roles;
+        return $this;
+    }
+    
 }
