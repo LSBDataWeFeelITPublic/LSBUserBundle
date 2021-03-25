@@ -1,0 +1,9 @@
+services:
+    LSB\UserBundle\Factory\UserFactory:
+        arguments:
+            - '%lsb_user.config.resources.user.class.entity%'
+
+    lsb_user_factory_user:
+        alias: 'LSB\UserBundle\Factory\UserFactory'
+
+    LSB\UserBundle\Factory\UserFactoryInterface: '@LSB\UserBundle\Factory\UserFactory'

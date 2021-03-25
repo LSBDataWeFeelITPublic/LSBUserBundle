@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace LSB\UserBUndle\Entity;
+namespace LSB\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use LSB\UtilityBundle\Traits\CreatedUpdatedTrait;
@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Class User
- * @package LSB\UserBUndle\Entity
+ * @package LSB\UserBundle\Entity
  *
  * @MappedSuperclass
  */
@@ -95,7 +95,6 @@ class User implements UserInterface
 
     // TODO groups
 
-
     /**
      * User constructor.
      */
@@ -135,9 +134,9 @@ class User implements UserInterface
 
     /**
      * @param bool $isEnabled
-     * @return User
+     * @return self
      */
-    public function setIsEnabled(bool $isEnabled): User
+    public function setIsEnabled(bool $isEnabled): self
     {
         $this->isEnabled = $isEnabled;
         return $this;
@@ -153,9 +152,9 @@ class User implements UserInterface
 
     /**
      * @param string $username
-     * @return User
+     * @return self
      */
-    public function setUsername(string $username): User
+    public function setUsername(string $username): self
     {
         $this->username = $username;
         return $this;
@@ -171,9 +170,9 @@ class User implements UserInterface
 
     /**
      * @param string $email
-     * @return User
+     * @return self
      */
-    public function setEmail(string $email): User
+    public function setEmail(string $email): self
     {
         $this->email = $email;
         return $this;
@@ -189,9 +188,9 @@ class User implements UserInterface
 
     /**
      * @param string|null $firstName
-     * @return User
+     * @return self
      */
-    public function setFirstName(?string $firstName): User
+    public function setFirstName(?string $firstName): self
     {
         $this->firstName = $firstName;
         return $this;
@@ -207,9 +206,9 @@ class User implements UserInterface
 
     /**
      * @param string|null $lastName
-     * @return User
+     * @return self
      */
-    public function setLastName(?string $lastName): User
+    public function setLastName(?string $lastName): self
     {
         $this->lastName = $lastName;
         return $this;
@@ -225,9 +224,9 @@ class User implements UserInterface
 
     /**
      * @param string $password
-     * @return User
+     * @return self
      */
-    public function setPassword(string $password): User
+    public function setPassword(string $password): self
     {
         $this->password = $password;
         return $this;
@@ -243,9 +242,9 @@ class User implements UserInterface
 
     /**
      * @param string|null $plainPassword
-     * @return User
+     * @return self
      */
-    public function setPlainPassword(?string $plainPassword): User
+    public function setPlainPassword(?string $plainPassword): self
     {
         $this->plainPassword = $plainPassword;
         return $this;
@@ -261,9 +260,9 @@ class User implements UserInterface
 
     /**
      * @param string $salt
-     * @return User
+     * @return self
      */
-    public function setSalt(string $salt): User
+    public function setSalt(string $salt): self
     {
         $this->salt = $salt;
         return $this;
@@ -279,9 +278,9 @@ class User implements UserInterface
 
     /**
      * @param string|null $confirmationToken
-     * @return User
+     * @return self
      */
-    public function setConfirmationToken(?string $confirmationToken): User
+    public function setConfirmationToken(?string $confirmationToken): self
     {
         $this->confirmationToken = $confirmationToken;
         return $this;
@@ -297,9 +296,9 @@ class User implements UserInterface
 
     /**
      * @param \DateTime|null $lastLogin
-     * @return User
+     * @return self
      */
-    public function setLastLogin(?\DateTime $lastLogin): User
+    public function setLastLogin(?\DateTime $lastLogin): self
     {
         $this->lastLogin = $lastLogin;
         return $this;
@@ -324,9 +323,9 @@ class User implements UserInterface
 
     /**
      * @param array|null $roles
-     * @return User
+     * @return self
      */
-    public function setRoles(?array $roles): User
+    public function setRoles(?array $roles): self
     {
         $this->roles = $roles;
         return $this;
@@ -336,7 +335,7 @@ class User implements UserInterface
      * @param string $role
      * @return $this
      */
-    public function addRole(string $role): User
+    public function addRole(string $role): self
     {
         $role = strtoupper($role);
         if ($role === self::ROLE_DEFAULT) {

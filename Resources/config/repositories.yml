@@ -1,0 +1,6 @@
+services:
+    LSB\UserBundle\Repository\UserRepository:
+        arguments:
+            - '@doctrine'
+
+    LSB\UserBundle\Repository\UserRepositoryInterface: '@LSB\UserBundle\Repository\UserRepository'

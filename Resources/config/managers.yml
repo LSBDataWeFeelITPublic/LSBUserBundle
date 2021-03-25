@@ -1,0 +1,4 @@
+services:
+    LSB\UserBundle\Manager\UserManager:
+        arguments:
+            - '@lsb_utility_object_manager'
