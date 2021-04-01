@@ -7,3 +7,11 @@ services:
         alias: 'LSB\UserBundle\Factory\UserFactory'
 
     LSB\UserBundle\Factory\UserFactoryInterface: '@LSB\UserBundle\Factory\UserFactory'
+
+    LSB\UserBundle\Factory\UserGroupFactory:
+        arguments:
+            - '%lsb_user.config.resources.user_group.class.entity%'
+    lsb_user_factory_user_group:
+        alias: LSB\UserBundle\Factory\UserGroupFactory
+    LSB\UserBundle\Factory\UserGroupFactoryInterface: '@LSB\UserBundle\Factory\UserGroupFactory'
+

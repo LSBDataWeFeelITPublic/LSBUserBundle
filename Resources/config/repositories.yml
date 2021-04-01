@@ -4,3 +4,8 @@ services:
             - '@doctrine'
 
     LSB\UserBundle\Repository\UserRepositoryInterface: '@LSB\UserBundle\Repository\UserRepository'
+
+    LSB\UserBundle\Repository\UserGroupRepository:
+        arguments:
+            - '@doctrine'
+    LSB\UserBundle\Repository\UserGroupRepositoryInterface: '@LSB\UserBundle\Repository\UserGroupRepository'

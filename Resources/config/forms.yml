@@ -2,3 +2,11 @@ services:
     LSB\UserBundle\Form\UserType:
         tags:
             - { name: form.type }
+
+    LSB\UserBundle\Form\UserGroupType:
+        tags:
+            -
+                name: form.type
+        #   FIXME: Poprawna forma zapisu:
+        #  - {name: form.type}
+

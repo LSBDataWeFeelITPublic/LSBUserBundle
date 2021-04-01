@@ -48,7 +48,7 @@ class UserManager extends BaseManager
      */
     public function getFactory(): UserFactoryInterface
     {
-        return $this->factory;
+        return parent::getFactory();
     }
 
     /**
@@ -56,10 +56,6 @@ class UserManager extends BaseManager
      */
     public function getRepository(): UserRepositoryInterface
     {
-        if (!$this->repository instanceof UserRepositoryInterface) {
-            throw new \Exception('Missing repository service');
-        }
-
-        return $this->repository;
+        return parent::getRepository();
     }
 }

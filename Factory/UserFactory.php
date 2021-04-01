@@ -18,7 +18,7 @@ class UserFactory extends BaseFactory implements UserFactoryInterface
      */
     public function createNew(): UserInterface
     {
-        return new $this->className();
+        return parent::createNew();
     }
 
 }

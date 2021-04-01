@@ -3,11 +3,16 @@ declare(strict_types=1);
 
 namespace LSB\UserBundle\DependencyInjection;
 
+use LSB\UserBundle\Entity\UserGroupInterface;
 use LSB\UserBundle\Entity\UserInterface;
 use LSB\UserBundle\Factory\UserFactory;
+use LSB\UserBundle\Factory\UserGroupFactory;
+use LSB\UserBundle\Form\UserGroupType;
 use LSB\UserBundle\Form\UserType;
 use LSB\UserBundle\LSBUserBundle;
+use LSB\UserBundle\Manager\UserGroupManager;
 use LSB\UserBundle\Manager\UserManager;
+use LSB\UserBundle\Repository\UserGroupRepository;
 use LSB\UserBundle\Repository\UserRepository;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -53,6 +58,24 @@ class Configuration implements ConfigurationInterface
             ->end()
             ->end()
             // End User
+
+            // Start UserGroup
+            ->arrayNode('user_group')
+            ->addDefaultsIfNotSet()
+            ->children()
+            ->arrayNode(BE::CONFIG_KEY_CLASSES)
+            ->children()
+            ->scalarNode(BE::CONFIG_KEY_ENTITY)->end()
+            ->scalarNode(BE::CONFIG_KEY_INTERFACE)->defaultValue(UserGroupInterface::class)->end()
+            ->scalarNode(BE::CONFIG_KEY_FACTORY)->defaultValue(UserGroupFactory::class)->end()
+            ->scalarNode(BE::CONFIG_KEY_REPOSITORY)->defaultValue(UserGroupRepository::class)->end()
+            ->scalarNode(BE::CONFIG_KEY_MANAGER)->defaultValue(UserGroupManager::class)->end()
+            ->scalarNode(BE::CONFIG_KEY_FORM)->defaultValue(UserGroupType::class)->end()
+            ->end()
+            ->end()
+            ->end()
+            ->end()
+            // End UserGroup
 
             ->end()
             ->end()

@@ -2,3 +2,7 @@ services:
     LSB\UserBundle\Manager\UserManager:
         arguments:
             - '@lsb_utility_object_manager'
+
+    LSB\UserBundle\Manager\UserGroupManager:
+        arguments:
+            - '@lsb_utility_object_manager'
