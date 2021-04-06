@@ -58,4 +58,30 @@ class UserManager extends BaseManager
     {
         return parent::getRepository();
     }
+
+    /**
+     * @return string
+     */
+    public function getClass(): string
+    {
+        return UserInterface::class;
+    }
+
+    /**
+     * @param array $criteria
+     * @return UserInterface|null
+     */
+    public function findUserBy(array $criteria): ?UserInterface
+    {
+        return $this->getRepository()->findOneBy($criteria);
+    }
+
+    /**
+     * @param string $username
+     * @return UserInterface|null
+     */
+    public function findUserByUsername(string $username): ?UserInterface
+    {
+        return $this->getRepository()->findOneBy(['username' => $username]);
+    }
 }

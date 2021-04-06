@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace LSB\UserBundle\Repository;
 
+use LSB\UserBundle\Entity\UserInterface;
 use LSB\UtilityBundle\Repository\RepositoryInterface;
 
 /**
@@ -11,5 +12,7 @@ use LSB\UtilityBundle\Repository\RepositoryInterface;
  */
 interface UserRepositoryInterface extends RepositoryInterface
 {
+
+    public function findOneBy(array $criteria, array $orderBy = null): ?UserInterface;
 
 }

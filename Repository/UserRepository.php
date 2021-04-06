@@ -27,4 +27,5 @@ class UserRepository extends ServiceEntityRepository implements UserRepositoryIn
         parent::__construct($registry, $stringClass ?? User::class);
     }
 
+
 }
