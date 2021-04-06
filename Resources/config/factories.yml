@@ -15,3 +15,10 @@ services:
         alias: LSB\UserBundle\Factory\UserGroupFactory
     LSB\UserBundle\Factory\UserGroupFactoryInterface: '@LSB\UserBundle\Factory\UserGroupFactory'
 
+    LSB\UserBundle\Factory\UserGroupRelationFactory:
+        arguments:
+            - '%lsb_user.config.resources.user_group_relation.class.entity%'
+    lsb_user_factory_user_group_relation:
+        alias: LSB\UserBundle\Factory\UserGroupRelationFactory
+    LSB\UserBundle\Factory\UserGroupRelationFactoryInterface: '@LSB\UserBundle\Factory\UserGroupRelationFactory'
+

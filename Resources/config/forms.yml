@@ -5,8 +5,10 @@ services:
 
     LSB\UserBundle\Form\UserGroupType:
         tags:
-            -
-                name: form.type
-        #   FIXME: Poprawna forma zapisu:
-        #  - {name: form.type}
+            - { name: form.type }
+
+    LSB\UserBundle\Form\UserGroupRelationType:
+        tags:
+            - { name: form.type }
+
 

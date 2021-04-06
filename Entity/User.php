@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace LSB\UserBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use LSB\UtilityBundle\Traits\CreatedUpdatedTrait;
 use Doctrine\ORM\Mapping\MappedSuperclass;
@@ -93,7 +95,12 @@ class User implements UserInterface
      */
     protected ?\DateTime $lastLogin;
 
-    // TODO groups
+    /**
+     * @var Collection|UserGroupRelationInterface[]
+     * @ORM\OneToMany(targetEntity="LSB\UserBundle\Entity\UserGroupRelationInterface", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    protected Collection $userGroupRelations;
+
 
     /**
      * User constructor.
@@ -103,6 +110,7 @@ class User implements UserInterface
         $this->generateUuid();
         $this->isEnabled = false;
         $this->roles = [];
+        $this->userGroupRelations = new ArrayCollection();
     }
 
     /**
@@ -311,9 +319,10 @@ class User implements UserInterface
     {
         $roles = $this->roles;
 
-//        foreach ($this->getGroups() as $group) {
-//            $roles = array_merge($roles, $group->getRoles());
-//        }
+        foreach ($this->getUserGroupRelations() as $userGroupRelation) {
+            /** @var UserGroupRelationInterface $userGroupRelation */
+            $roles = array_merge($roles, $userGroupRelation->getUserGroup()->getRoles());
+        }
 
         // we need to make sure to have at least one role
         $roles[] = self::ROLE_DEFAULT;
@@ -363,4 +372,24 @@ class User implements UserInterface
     {
         $this->plainPassword = null;
     }
+
+    /**
+     * @return Collection|UserGroupRelationInterface[]
+     */
+    public function getUserGroupRelations()
+    {
+        return $this->userGroupRelations;
+    }
+
+    /**
+     * @param Collection|UserGroupRelationInterface[] $userGroupRelations
+     * @return User
+     */
+    public function setUserGroupRelations($userGroupRelations)
+    {
+        $this->userGroupRelations = $userGroupRelations;
+        return $this;
+    }
+
+
 }

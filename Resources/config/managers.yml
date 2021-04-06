@@ -6,3 +6,7 @@ services:
     LSB\UserBundle\Manager\UserGroupManager:
         arguments:
             - '@lsb_utility_object_manager'
+
+    LSB\UserBundle\Manager\UserGroupRelationManager:
+        arguments:
+            - '@lsb_utility_object_manager'
