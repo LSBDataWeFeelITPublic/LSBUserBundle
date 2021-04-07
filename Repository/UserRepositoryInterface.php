@@ -13,6 +13,6 @@ use LSB\UtilityBundle\Repository\RepositoryInterface;
 interface UserRepositoryInterface extends RepositoryInterface
 {
 
-    public function findOneBy(array $criteria, array $orderBy = null): ?UserInterface;
+    public function findOneBy(array $criteria, array $orderBy = null);
 
 }
