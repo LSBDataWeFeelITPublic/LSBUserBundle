@@ -8,6 +8,8 @@ use LSB\UserBundle\Entity\UserInterface;
 use LSB\UserBundle\Manager\UserManager;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
 use Symfony\Component\Security\Core\User\UserInterface as SecurityUserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
@@ -15,7 +17,7 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
  * Class UserProvider
  * @package LSB\UserBundle\Security
  */
-class UserProvider implements UserProviderInterface
+class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 {
 
     protected UserManager $userManager;
@@ -80,5 +82,15 @@ class UserProvider implements UserProviderInterface
     protected function findUser(string $username): ?UserInterface
     {
         return $this->userManager->findUserByUsername($username);
+    }
+
+    /**
+     * @param UserInterface $user
+     * @param string $newEncodedPassword
+     */
+    public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
+    {
+        $user->setPassword($newEncodedPassword);
+        $this->userManager->doPersist($user);
     }
 }

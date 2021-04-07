@@ -11,6 +11,24 @@ composer require lsb/user-bundle
 
 ### Configuration
 
+```
+# config/packages/security.yaml
+
+security:
+    providers:
+        # the name of your user provider can be anything
+        lsb_user_provider:
+            id: LSB\UserBundle\Security\UserProvider
+            
+           
+    encoders:
+        # use your user class name here
+        App\Entity\AppUser:
+            # Use native password encoder
+            # This value auto-selects the best possible hashing algorithm
+            # (i.e. Sodium when available).
+            algorithm: auto
+```
 
 ### Usage
 
