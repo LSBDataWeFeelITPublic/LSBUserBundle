@@ -1,7 +1,8 @@
 services:
     LSB\UserBundle\Manager\UserManager:
         arguments:
-            - '@lsb_utility_object_manager'
+            - $objectManager: '@lsb_utility_object_manager'
+            - $passwordHasher: '@security.user_password_hasher'
 
     LSB\UserBundle\Manager\UserGroupManager:
         arguments:

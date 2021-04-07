@@ -111,6 +111,7 @@ class User implements UserInterface
         $this->isEnabled = false;
         $this->roles = [];
         $this->userGroupRelations = new ArrayCollection();
+        $this->salt = rtrim(str_replace('+', '.', base64_encode(random_bytes(32))), '=');
     }
 
     /**

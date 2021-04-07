@@ -11,6 +11,8 @@ use LSB\UtilityBundle\Form\BaseEntityType;
 use LSB\UtilityBundle\Manager\ObjectManagerInterface;
 use LSB\UtilityBundle\Manager\BaseManager;
 use LSB\UtilityBundle\Repository\RepositoryInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+
 
 /**
  * Class UserManager
@@ -19,45 +21,35 @@ use LSB\UtilityBundle\Repository\RepositoryInterface;
 class UserManager extends BaseManager
 {
 
+    protected UserPasswordHasherInterface $passwordHasher;
+
     /**
      * UserManager constructor.
      * @param ObjectManagerInterface $objectManager
      * @param UserFactoryInterface $factory
      * @param UserRepositoryInterface $repository
      * @param BaseEntityType|null $form
+     * @param UserPasswordHasherInterface $passwordHasher
      */
     public function __construct(
         ObjectManagerInterface $objectManager,
         UserFactoryInterface $factory,
         UserRepositoryInterface $repository,
-        ?BaseEntityType $form
+        ?BaseEntityType $form,
+        UserPasswordHasherInterface $passwordHasher
     ) {
+        $this->passwordHasher = $passwordHasher;
+
         parent::__construct($objectManager, $factory, $repository, $form);
     }
 
-    /**
-     * @return UserInterface|object
-     */
-    public function createNew(): UserInterface
+    public function doPersist(object $object, bool $throwException = true): bool
     {
-        return parent::createNew();
+        $object->setPassword($this->passwordHasher->hashPassword($object, $object->getPlainPassword()));
+
+        return parent::doPersist($object, $throwException);
     }
 
-    /**
-     * @return UserFactoryInterface|FactoryInterface
-     */
-    public function getFactory(): UserFactoryInterface
-    {
-        return parent::getFactory();
-    }
-
-    /**
-     * @return UserRepositoryInterface|RepositoryInterface
-     */
-    public function getRepository(): UserRepositoryInterface
-    {
-        return parent::getRepository();
-    }
 
     /**
      * @return string

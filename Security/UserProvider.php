@@ -91,6 +91,6 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
     public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
     {
         $user->setPassword($newEncodedPassword);
-        $this->userManager->doPersist($user);
+        $this->userManager->flush();
     }
 }
