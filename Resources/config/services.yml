@@ -3,3 +3,5 @@ services:
     LSB\UserBundle\Security\UserProvider:
         arguments:
             - '@LSB\UserBundle\Manager\UserManager'
+
+    LSB\UserBundle\Security\UserChecker: ~

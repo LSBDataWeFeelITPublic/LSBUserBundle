@@ -86,11 +86,11 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
 
     /**
      * @param UserInterface $user
-     * @param string $newEncodedPassword
+     * @param string $newHashedPassword
      */
-    public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
+    public function upgradePassword(UserInterface $user, string $newHashedPassword): void
     {
-        $user->setPassword($newEncodedPassword);
+        $user->setPassword($newHashedPassword);
         $this->userManager->flush();
     }
 }

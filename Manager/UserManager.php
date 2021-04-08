@@ -45,7 +45,10 @@ class UserManager extends BaseManager
 
     public function doPersist(object $object, bool $throwException = true): bool
     {
-        $object->setPassword($this->passwordHasher->hashPassword($object, $object->getPlainPassword()));
+        if ($object->getPlainPassword()) {
+            $object->setPassword($this->passwordHasher->hashPassword($object, $object->getPlainPassword()));
+            $object->eraseCredentials();
+        }
 
         return parent::doPersist($object, $throwException);
     }

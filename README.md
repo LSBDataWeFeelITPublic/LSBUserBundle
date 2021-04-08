@@ -28,6 +28,11 @@ security:
             # This value auto-selects the best possible hashing algorithm
             # (i.e. Sodium when available).
             algorithm: auto
+            
+    firewalls:
+        main:
+            user_checker: LSB\UserBundle\Security\UserChecker
+            # ...
 ```
 
 ### Usage
