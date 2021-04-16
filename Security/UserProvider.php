@@ -69,7 +69,7 @@ class UserProvider implements UserProviderInterface, PasswordUpgraderInterface
      */
     public function supportsClass(string $class): bool
     {
-        $userClass = User::class;
+        $userClass = $this->userManager->getFactory()->getClassName();
 
         return $userClass === $class || is_subclass_of($class, $userClass);
     }

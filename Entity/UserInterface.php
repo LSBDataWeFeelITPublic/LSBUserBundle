@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace LSB\UserBundle\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface as BaseUserInterface;
 
-use Symfony\Component\Security\Core\User\LegacyPasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-
-interface UserInterface extends \Symfony\Component\Security\Core\User\UserInterface
+/**
+ * Interface UserInterface
+ * @package LSB\UserBundle\Entity
+ */
+interface UserInterface extends BaseUserInterface
 {
     const ROLE_DEFAULT = 'ROLE_USER';
 
@@ -28,6 +30,4 @@ interface UserInterface extends \Symfony\Component\Security\Core\User\UserInterf
     public function getLastLogin(): ?\DateTime;
 
     public function setLastLogin(?\DateTime $lastLogin): self;
-
-
 }

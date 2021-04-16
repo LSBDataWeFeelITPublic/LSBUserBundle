@@ -11,7 +11,6 @@ use Doctrine\ORM\Mapping\MappedSuperclass;
 use LSB\UtilityBundle\Traits\UuidTrait;
 use Symfony\Component\Validator\Constraints as Assert;
 
-
 /**
  * Class User
  * @package LSB\UserBundle\Entity
@@ -123,6 +122,14 @@ class User implements UserInterface
             $this->id = null;
         }
         $this->generateUuid($force = true);
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getUserIdentifier(): ?string
+    {
+        return $this->email;
     }
 
     /**
