@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace LSB\UserBundle\Repository;
 
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use LSB\UserBundle\Entity\UserGroupRelation;
+use LSB\UtilityBundle\Repository\BaseRepository;
 use LSB\UtilityBundle\Repository\PaginationInterface;
 use LSB\UtilityBundle\Repository\PaginationRepositoryTrait;
 
@@ -13,7 +13,7 @@ use LSB\UtilityBundle\Repository\PaginationRepositoryTrait;
  * Class UserGroupRelationRepository
  * @package LSB\UserBundle\Repository
  */
-class UserGroupRelationRepository extends ServiceEntityRepository implements UserGroupRelationRepositoryInterface, PaginationInterface
+class UserGroupRelationRepository extends BaseRepository implements UserGroupRelationRepositoryInterface, PaginationInterface
 {
     use PaginationRepositoryTrait;
 

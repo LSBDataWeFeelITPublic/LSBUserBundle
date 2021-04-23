@@ -3,9 +3,9 @@ declare(strict_types=1);
 
 namespace LSB\UserBundle\Repository;
 
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use LSB\UserBundle\Entity\User;
+use LSB\UtilityBundle\Repository\BaseRepository;
 use LSB\UtilityBundle\Repository\PaginationInterface;
 use LSB\UtilityBundle\Repository\PaginationRepositoryTrait;
 
@@ -13,7 +13,7 @@ use LSB\UtilityBundle\Repository\PaginationRepositoryTrait;
  * Class UserRepository
  * @package LSB\UserBundle\Repository
  */
-class UserRepository extends ServiceEntityRepository implements UserRepositoryInterface, PaginationInterface
+class UserRepository extends BaseRepository implements UserRepositoryInterface, PaginationInterface
 {
     use PaginationRepositoryTrait;
 
