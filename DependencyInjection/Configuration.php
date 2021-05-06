@@ -3,7 +3,10 @@ declare(strict_types=1);
 
 namespace LSB\UserBundle\DependencyInjection;
 
+use LSB\UserBundle\Entity\User;
+use LSB\UserBundle\Entity\UserGroup;
 use LSB\UserBundle\Entity\UserGroupInterface;
+use LSB\UserBundle\Entity\UserGroupRelation;
 use LSB\UserBundle\Entity\UserGroupRelationInterface;
 use LSB\UserBundle\Entity\UserInterface;
 use LSB\UserBundle\Factory\UserFactory;
@@ -48,6 +51,7 @@ class Configuration implements ConfigurationInterface
             //User
             ->resourceNode(
                 'user',
+                User::class,
                 UserInterface::class,
                 UserFactory::class,
                 UserRepository::class,
@@ -59,6 +63,7 @@ class Configuration implements ConfigurationInterface
             //UserGroup
             ->resourceNode(
                 'user_group',
+                UserGroup::class,
                 UserGroupInterface::class,
                 UserGroupFactory::class,
                 UserGroupRepository::class,
@@ -70,6 +75,7 @@ class Configuration implements ConfigurationInterface
             //UserGroupRelation
             ->resourceNode(
                 'user_group_relation',
+                UserGroupRelation::class,
                 UserGroupRelationInterface::class,
                 UserGroupRelationFactory::class,
                 UserGroupRelationRepository::class,
