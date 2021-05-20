@@ -6,10 +6,10 @@ namespace LSB\UserBundle\Repository;
 use LSB\UtilityBundle\Repository\RepositoryInterface;
 
 /**
- * Interface UserGroupRelationRepositoryInterface
+ * Interface GroupRepositoryInterface
  * @package LSB\UserBundle\Repository
  */
-interface UserGroupRelationRepositoryInterface extends RepositoryInterface
+interface GroupRepositoryInterface extends RepositoryInterface
 {
 
 }

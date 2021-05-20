@@ -6,10 +6,10 @@ namespace LSB\UserBundle\Form;
 use LSB\UtilityBundle\Form\BaseEntityType;
 
 /**
- * Class UserGroupRelationType
+ * Class GroupType
  * @package LSB\UserBundle\Form
  */
-class UserGroupRelationType extends BaseEntityType
+class GroupType extends BaseEntityType
 {
 
 }

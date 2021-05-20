@@ -3,11 +3,11 @@ services:
         tags:
             - { name: form.type }
 
-    LSB\UserBundle\Form\UserGroupType:
+    LSB\UserBundle\Form\GroupType:
         tags:
             - { name: form.type }
 
-    LSB\UserBundle\Form\UserGroupRelationType:
+    LSB\UserBundle\Form\UserGroupType:
         tags:
             - { name: form.type }
 

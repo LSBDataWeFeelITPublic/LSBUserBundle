@@ -95,10 +95,10 @@ class User implements UserInterface
     protected ?\DateTime $lastLogin;
 
     /**
-     * @var Collection|UserGroupRelationInterface[]
-     * @ORM\OneToMany(targetEntity="LSB\UserBundle\Entity\UserGroupRelationInterface", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @var Collection|UserGroupInterface[]
+     * @ORM\OneToMany(targetEntity="LSB\UserBundle\Entity\UserGroupInterface", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
      */
-    protected Collection $userGroupRelations;
+    protected Collection $userGroups;
 
 
     /**
@@ -109,7 +109,7 @@ class User implements UserInterface
         $this->generateUuid();
         $this->isEnabled = false;
         $this->roles = [];
-        $this->userGroupRelations = new ArrayCollection();
+        $this->userGroups = new ArrayCollection();
         $this->salt = rtrim(str_replace('+', '.', base64_encode(random_bytes(32))), '=');
     }
 
@@ -327,9 +327,9 @@ class User implements UserInterface
     {
         $roles = $this->roles;
 
-        foreach ($this->getUserGroupRelations() as $userGroupRelation) {
-            /** @var UserGroupRelationInterface $userGroupRelation */
-            $roles = array_merge($roles, $userGroupRelation->getUserGroup()->getRoles());
+        foreach ($this->getUserGroups() as $userGroup) {
+            /** @var UserGroupInterface $userGroup */
+            $roles = array_merge($roles, $userGroup->getGroup()->getRoles());
         }
 
         // we need to make sure to have at least one role
@@ -382,20 +382,20 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|UserGroupRelationInterface[]
+     * @return Collection|UserGroupInterface[]
      */
-    public function getUserGroupRelations()
+    public function getUserGroups()
     {
-        return $this->userGroupRelations;
+        return $this->userGroups;
     }
 
     /**
-     * @param Collection|UserGroupRelationInterface[] $userGroupRelations
+     * @param Collection|UserGroupInterface[] $userGroups
      * @return User
      */
-    public function setUserGroupRelations($userGroupRelations)
+    public function setUserGroups($userGroups)
     {
-        $this->userGroupRelations = $userGroupRelations;
+        $this->userGroups = $userGroups;
         return $this;
     }
 

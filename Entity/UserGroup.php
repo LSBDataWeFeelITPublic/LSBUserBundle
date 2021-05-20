@@ -3,125 +3,66 @@ declare(strict_types=1);
 
 namespace LSB\UserBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
-use LSB\UtilityBundle\Traits\CreatedUpdatedTrait;
 use Doctrine\ORM\Mapping\MappedSuperclass;
-use LSB\UtilityBundle\Traits\UuidTrait;
-use Symfony\Component\Validator\Constraints as Assert;
+use LSB\UtilityBundle\Traits\IdTrait;
+use Doctrine\ORM\Mapping as ORM;
 
 
 /**
- * Class Group
+ * Class UserGroup
  * @package LSB\UserBundle\Entity
  *
  * @MappedSuperclass
  */
 class UserGroup implements UserGroupInterface
 {
-    use UuidTrait;
-    use CreatedUpdatedTrait;
+    use IdTrait;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=false)
-     * @Assert\Length(max=100)
+     * @ORM\ManyToOne(targetEntity="LSB\UserBundle\Entity\UserInterface", inversedBy="userGroups")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    protected string $name;
+    protected UserInterface $user;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
+     * @ORM\ManyToOne(targetEntity="LSB\UserBundle\Entity\GroupInterface", inversedBy="userGroups")
+     * @ORM\JoinColumn(name="group_id", referencedColumnName="id", nullable=false, onDelete="CASCADE")
      */
-    protected ?array $roles;
+    protected GroupInterface $group;
 
     /**
-     * @var Collection|UserGroupRelationInterface[]
-     * @ORM\OneToMany(targetEntity="LSB\UserBundle\Entity\UserGroupRelationInterface", mappedBy="userGroup", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @return UserInterface
      */
-    protected Collection $userGroupRelations;
-
-
-    public function __construct()
+    public function getUser(): UserInterface
     {
-        $this->userGroupRelations = new ArrayCollection();
-        $this->roles = [];
+        return $this->user;
     }
 
     /**
-     * @return string
-     */
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @param string $name
+     * @param UserInterface $user
      * @return UserGroup
      */
-    public function setName(string $name): UserGroup
+    public function setUser(UserInterface $user): UserGroup
     {
-        $this->name = $name;
+        $this->user = $user;
         return $this;
     }
 
     /**
-     * @return array|null
+     * @return GroupInterface
      */
-    public function getRoles(): ?array
+    public function getGroup(): GroupInterface
     {
-        return array_unique($this->roles);
+        return $this->group;
     }
 
     /**
-     * @param array|null $roles
+     * @param GroupInterface $group
      * @return UserGroup
      */
-    public function setRoles(?array $roles): UserGroup
+    public function setGroup(GroupInterface $group): UserGroup
     {
-        $this->roles = $roles;
-        return $this;
-    }
-
-    /**
-     * @param string $role
-     * @return $this
-     */
-    public function addRole(string $role): UserGroup
-    {
-        $role = strtoupper($role);
-
-        if (!in_array($role, $this->roles, true)) {
-            $this->roles[] = $role;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param string $role
-     * @return bool
-     */
-    public function hasRole(string $role): bool
-    {
-        return in_array(strtoupper($role), $this->getRoles(), true);
-    }
-
-    /**
-     * @return Collection|UserGroupRelationInterface[]
-     */
-    public function getUserGroupRelations()
-    {
-        return $this->userGroupRelations;
-    }
-
-    /**
-     * @param Collection|UserGroupRelationInterface[] $userGroupRelations
-     * @return UserGroup
-     */
-    public function setUserGroupRelations($userGroupRelations)
-    {
-        $this->userGroupRelations = $userGroupRelations;
+        $this->group = $group;
         return $this;
     }
 

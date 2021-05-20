@@ -6,15 +6,15 @@ services:
 
     LSB\UserBundle\Factory\UserFactoryInterface: '@LSB\UserBundle\Factory\UserFactory'
 
-    LSB\UserBundle\Factory\UserGroupFactory: ~
+    LSB\UserBundle\Factory\GroupFactory: ~
 
+    lsb_user_factory_group:
+        alias: LSB\UserBundle\Factory\GroupFactory
+    LSB\UserBundle\Factory\GroupFactoryInterface: '@LSB\UserBundle\Factory\GroupFactory'
+
+    LSB\UserBundle\Factory\UserGroupFactory: ~
+    
     lsb_user_factory_user_group:
         alias: LSB\UserBundle\Factory\UserGroupFactory
     LSB\UserBundle\Factory\UserGroupFactoryInterface: '@LSB\UserBundle\Factory\UserGroupFactory'
-
-    LSB\UserBundle\Factory\UserGroupRelationFactory: ~
-    
-    lsb_user_factory_user_group_relation:
-        alias: LSB\UserBundle\Factory\UserGroupRelationFactory
-    LSB\UserBundle\Factory\UserGroupRelationFactoryInterface: '@LSB\UserBundle\Factory\UserGroupRelationFactory'
 

@@ -4,27 +4,27 @@ declare(strict_types=1);
 namespace LSB\UserBundle\Repository;
 
 use Doctrine\Persistence\ManagerRegistry;
-use LSB\UserBundle\Entity\UserGroupRelation;
+use LSB\UserBundle\Entity\Group;
 use LSB\UtilityBundle\Repository\BaseRepository;
 use LSB\UtilityBundle\Repository\PaginationInterface;
 use LSB\UtilityBundle\Repository\PaginationRepositoryTrait;
 
 /**
- * Class UserGroupRelationRepository
+ * Class GroupRepository
  * @package LSB\UserBundle\Repository
  */
-class UserGroupRelationRepository extends BaseRepository implements UserGroupRelationRepositoryInterface, PaginationInterface
+class GroupRepository extends BaseRepository implements GroupRepositoryInterface, PaginationInterface
 {
     use PaginationRepositoryTrait;
 
     /**
-     * UserGroupRelationRepository constructor.
+     * GroupRepository constructor.
      * @param ManagerRegistry $registry
      * @param string|null $stringClass
      */
     public function __construct(ManagerRegistry $registry, ?string $stringClass = null)
     {
-        parent::__construct($registry, $stringClass ?? UserGroupRelation::class);
+        parent::__construct($registry, $stringClass ?? Group::class);
     }
 
 }

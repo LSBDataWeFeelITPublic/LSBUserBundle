@@ -6,16 +6,13 @@ namespace LSB\UserBundle\Entity;
 
 interface UserGroupInterface
 {
-    public function getName(): string;
 
-    public function setName(string $name): self;
+    public function getUser(): UserInterface;
 
-    public function getRoles(): ?array;
+    public function setUser(UserInterface $user): self;
 
-    public function setRoles(?array $roles): self;
+    public function getGroup(): GroupInterface;
 
-    public function addRole(string $role): self;
-
-    public function hasRole(string $role): bool;
+    public function setGroup(GroupInterface $group): self;
 
 }

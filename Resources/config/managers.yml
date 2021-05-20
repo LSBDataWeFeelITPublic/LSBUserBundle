@@ -4,10 +4,10 @@ services:
             "$objectManager": '@lsb_utility_object_manager'
             "$passwordHasher": '@security.user_password_hasher'
 
-    LSB\UserBundle\Manager\UserGroupManager:
+    LSB\UserBundle\Manager\GroupManager:
         arguments:
             - '@lsb_utility_object_manager'
 
-    LSB\UserBundle\Manager\UserGroupRelationManager:
+    LSB\UserBundle\Manager\UserGroupManager:
         arguments:
             - '@lsb_utility_object_manager'
