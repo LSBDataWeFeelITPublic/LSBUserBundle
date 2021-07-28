@@ -6,6 +6,7 @@ namespace LSB\UserBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use LSB\ContractorBundle\Entity\ContractorInterface;
 use LSB\UtilityBundle\Traits\CreatedUpdatedTrait;
 use Doctrine\ORM\Mapping\MappedSuperclass;
 use LSB\UtilityBundle\Traits\UuidTrait;
@@ -99,6 +100,24 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="LSB\UserBundle\Entity\UserGroupInterface", mappedBy="user", cascade={"persist", "remove"}, orphanRemoval=true)
      */
     protected Collection $userGroups;
+
+    /**
+     * @var ContractorInterface|null
+     * @ORM\ManyToOne(targetEntity="LSB\ContractorBundle\Entity\ContractorInterface")
+     */
+    protected ?ContractorInterface $defaultBillingContractor = null;
+
+    /**
+     * @var ContractorInterface|null
+     * @ORM\ManyToOne(targetEntity="LSB\ContractorBundle\Entity\ContractorInterface")
+     */
+    protected ?ContractorInterface $defaultDeliveryContractor = null;
+
+    /**
+     * @var ContractorInterface|null
+     * @ORM\ManyToOne(targetEntity="LSB\ContractorBundle\Entity\ContractorInterface")
+     */
+    protected ?ContractorInterface $defaultRecipientContractor = null;
 
 
     /**
@@ -391,7 +410,7 @@ class User implements UserInterface
 
     /**
      * @param Collection|UserGroupInterface[] $userGroups
-     * @return User
+     * @return $this
      */
     public function setUserGroups($userGroups)
     {
@@ -399,5 +418,57 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return ContractorInterface|null
+     */
+    public function getDefaultBillingContractor(): ?ContractorInterface
+    {
+        return $this->defaultBillingContractor;
+    }
 
+    /**
+     * @param ContractorInterface|null $defaultBillingContractor
+     * @return $this
+     */
+    public function setDefaultBillingContractor(?ContractorInterface $defaultBillingContractor): static
+    {
+        $this->defaultBillingContractor = $defaultBillingContractor;
+        return $this;
+    }
+
+    /**
+     * @return ContractorInterface|null
+     */
+    public function getDefaultDeliveryContractor(): ?ContractorInterface
+    {
+        return $this->defaultDeliveryContractor;
+    }
+
+    /**
+     * @param ContractorInterface|null $defaultDeliveryContractor
+     * @return $this
+     */
+    public function setDefaultDeliveryContractor(?ContractorInterface $defaultDeliveryContractor): static
+    {
+        $this->defaultDeliveryContractor = $defaultDeliveryContractor;
+        return $this;
+    }
+
+    /**
+     * @return ContractorInterface|null
+     */
+    public function getDefaultRecipientContractor(): ?ContractorInterface
+    {
+        return $this->defaultRecipientContractor;
+    }
+
+    /**
+     * @param ContractorInterface|null $defaultRecipientContractor
+     * @return $this
+     */
+    public function setDefaultRecipientContractor(?ContractorInterface $defaultRecipientContractor): static
+    {
+        $this->defaultRecipientContractor = $defaultRecipientContractor;
+        return $this;
+    }
 }
